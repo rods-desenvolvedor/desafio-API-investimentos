@@ -24,7 +24,7 @@ public class Investimento {
     private BigDecimal valorInvestimento;
     
     @ManyToOne
-    //@JoinColumn(name = "id_investidor")
+    @JoinColumn(name = "id_investidor")
     @JsonIgnore
     private Investidor investidor;
 

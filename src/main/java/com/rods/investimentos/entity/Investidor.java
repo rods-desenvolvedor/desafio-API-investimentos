@@ -20,7 +20,7 @@ public class Investidor {
     private String nome;
 
     @OneToMany
-    @JoinColumn(name = "id_investimentos")
+    @JoinColumn(name = "id_investidor")
     private List<Investimento> investimentos;
 
     public Long getId() {
