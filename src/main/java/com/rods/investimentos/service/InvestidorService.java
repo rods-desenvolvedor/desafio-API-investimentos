@@ -17,7 +17,7 @@ public class InvestidorService {
         this.investidorRepository = investidorRepository;
     }
 
-    public Investidor registrarInvestidor(Investidor investidor){
+    public Investidor cadastrarInvestidor(Investidor investidor){
         return investidorRepository.save(investidor);
     }
 
