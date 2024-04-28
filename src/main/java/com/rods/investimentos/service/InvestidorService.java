@@ -24,5 +24,9 @@ public class InvestidorService {
     public List<Investidor> listarInvestidores(){
         return investidorRepository.findAll();
     }
+
+    public Investidor listarInvestimentos(Long id){
+        return investidorRepository.findById(id).orElseThrow();
+    }
     
 }
