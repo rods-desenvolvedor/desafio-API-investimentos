@@ -1,6 +1,8 @@
 package com.rods.investimentos.service;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +28,9 @@ public class InvestimentoService {
 
         Investidor investidor = investidorRepository.findById(id).orElseThrow();
 
-        investimento.setDataInvestimento(LocalDate.now());
+        if(investimento.getDataInvestimento() == null){
+            investimento.setDataInvestimento(LocalDate.now());
+        }
 
         investimentoRepository.save(investimento);
         
@@ -35,5 +39,49 @@ public class InvestimentoService {
         investidor = investidorRepository.save(investidor);
 
         return investimentoRepository.save(investimento);
+    }
+
+
+
+    public BigDecimal calcularValorSaque(Long id){
+
+        Investimento investimento = investimentoRepository.findById(id).orElseThrow();
+
+        BigDecimal valorSaque = new BigDecimal(0);
+
+        BigDecimal ganho = new BigDecimal(0);
+
+        BigDecimal valorInvestimentoInicial = investimento.getValorInvestimento();
+
+        Period period = Period.between(investimento.getDataInvestimento(),LocalDate.now());
+
+        int mesesPassados = period.getYears() * 12 + period.getMonths();
+
+        ganho = valorInvestimentoInicial.multiply(new BigDecimal(mesesPassados)).multiply(new BigDecimal(0.052));
+
+        ganho = aplicarImpostos(ganho, mesesPassados);
+
+        valorSaque = valorInvestimentoInicial.add(ganho);
+
+        return valorSaque;
+    }
+
+    public BigDecimal aplicarImpostos(BigDecimal ganho, int mesesPassados){
+
+        if(mesesPassados <= 12){
+            BigDecimal perdas = ganho.multiply(new BigDecimal(0.225));
+            ganho = ganho.subtract(perdas);
+        }
+        if(mesesPassados > 12 || mesesPassados < 24){
+            BigDecimal perdas = ganho.multiply(new BigDecimal(0.185));
+            ganho = ganho.subtract(perdas);
+        }
+        if(mesesPassados > 24){
+            BigDecimal perdas = ganho.multiply(new BigDecimal(0.15));
+            ganho = ganho.subtract(perdas);
+            
+        }
+
+        return ganho;
     }
 }

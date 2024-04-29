@@ -1,5 +1,8 @@
 package com.rods.investimentos.controller;
 
+import java.math.BigDecimal;
+
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,6 +27,11 @@ public class InvestimentoController {
     @PostMapping("/cadastrar/{id}")
     private Investimento cadastrarInvestimento(@PathVariable Long id, @RequestBody Investimento investimento){
         return investimentoService.cadastrarInvestimento(id, investimento);
+    }
+
+    @GetMapping("/sacar/{id}")
+    private BigDecimal sacarInvestimento(@PathVariable Long id){
+        return investimentoService.calcularValorSaque(id);
     }
     
 }

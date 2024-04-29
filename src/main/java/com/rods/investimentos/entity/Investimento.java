@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "investimentos")
@@ -21,6 +22,7 @@ public class Investimento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private LocalDate dataInvestimento;
+    @NotBlank
     private BigDecimal valorInvestimento;
     
     @ManyToOne

@@ -2,8 +2,12 @@ package com.rods.investimentos.entity;
 
 import java.util.List;
 
+import org.antlr.v4.runtime.misc.NotNull;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import io.micrometer.common.lang.NonNull;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -11,6 +15,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "investidores")
@@ -19,6 +24,8 @@ public class Investidor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotBlank
     private String nome;
 
     @OneToMany
