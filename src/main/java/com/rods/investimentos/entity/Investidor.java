@@ -5,6 +5,7 @@ import java.util.List;
 import org.antlr.v4.runtime.misc.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import io.micrometer.common.lang.NonNull;
 import jakarta.persistence.Column;
