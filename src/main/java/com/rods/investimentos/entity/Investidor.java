@@ -1,5 +1,6 @@
 package com.rods.investimentos.entity;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.antlr.v4.runtime.misc.NotNull;
@@ -28,6 +29,8 @@ public class Investidor {
 
     @NotBlank
     private String nome;
+    
+    private BigDecimal saldo;
 
     @OneToMany
     @JoinColumn(name = "id_investidor")
@@ -55,6 +58,14 @@ public class Investidor {
 
     public void setInvestimentos(List<Investimento> investimentos) {
         this.investimentos = investimentos;
+    }
+
+    public BigDecimal getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(BigDecimal saldo) {
+        this.saldo = saldo;
     }
 
     

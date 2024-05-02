@@ -26,7 +26,7 @@ public class InvestimentoService {
 
     public Investimento cadastrarInvestimento(Long id, Investimento investimento){
 
-        Investidor investidor = investidorRepository.findById(id).orElseThrow();
+        Investidor investidor = investidorRepository.findById(id).orElseThrow(() ->  new RuntimeException("Esse investidor não existe."));
 
         if(investimento.getDataInvestimento() == null){
             investimento.setDataInvestimento(LocalDate.now());
@@ -45,7 +45,9 @@ public class InvestimentoService {
 
     public BigDecimal calcularValorSaque(Long id){
 
-        Investimento investimento = investimentoRepository.findById(id).orElseThrow();
+        Investimento investimento = investimentoRepository.findById(id).orElseThrow(() -> new RuntimeException("investimento não encontrado."));
+
+        Investidor investidor = investimento.getInvestidor();
 
         BigDecimal valorSaque = new BigDecimal(0);
 
@@ -62,6 +64,10 @@ public class InvestimentoService {
         ganho = aplicarImpostos(ganho, mesesPassados);
 
         valorSaque = valorInvestimentoInicial.add(ganho);
+
+        investidor.setSaldo(valorSaque);
+
+        investidorRepository.save(investidor);
 
         return valorSaque;
     }

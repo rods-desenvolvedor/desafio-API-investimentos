@@ -1,5 +1,6 @@
 package com.rods.investimentos.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -18,6 +19,9 @@ public class InvestidorService {
     }
 
     public Investidor cadastrarInvestidor(Investidor investidor){
+
+        investidor.setSaldo(new BigDecimal(0));
+
         return investidorRepository.save(investidor);
     }
 
