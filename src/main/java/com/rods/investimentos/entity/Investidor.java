@@ -36,6 +36,14 @@ public class Investidor {
     @JoinColumn(name = "id_investidor")
     private List<Investimento> investimentos;
 
+    public Investidor() {
+        
+    }
+
+    public Investidor(@NotBlank String nome) {
+        this.nome = nome;
+    }
+
     public Long getId() {
         return id;
     }
